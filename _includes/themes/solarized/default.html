@@ -24,13 +24,14 @@
         <section>
           <nav>
             <ul>
-              {% for post in site.posts %}
+              {% for post in site.posts limit:site.recent_posts %}
                 <li>
                   <h1><a href="{{ post.url }}"{% if page.id == post.id %} style="background:#dc322f; color:#fdf6e3;"{% endif %}>{{ post.title }}</a></h1>
                   <time>{{ post.date | date_to_string }}</time>
                 </li>
               {% endfor %}
             </ul>
+            {% if site.posts.size > site.recent_posts and page.url != "/archive.html" %}<p><a href="/archive.html">More articles &gt;</a></p>{% endif %}
           </nav>
         </section>
         <section>

@@ -11,6 +11,8 @@ title:
   {{ first_post.content }}
 </article>
 
-<style type="text/css">
-  nav li:first-child a{ background:#dc322f; color:#fdf6e3;}
-</style>
+<script type="text/javascript">
+$.domReady(function() {
+  $('#sidebar nav li:first-child a').addClass("solar");
+});
+</script>

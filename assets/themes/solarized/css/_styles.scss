@@ -1,0 +1,265 @@
+@include global-reset;
+
+body {
+  background: white;
+  color: $base02;
+  font-family: $sans;
+  font-size: 13px;
+  padding: 40px 0 40px 320px;
+  width: 640px;
+  line-height: 1.5em;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+a {
+  border-bottom: $base2 1px solid;
+  color: $solar-blue;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  @include transition(all 300ms ease-out);
+
+  &:hover{
+    border-bottom-color: $solar-blue;
+  }
+
+  &:active {
+    outline: none;
+    top: 1px;
+  }
+}
+
+article {
+  h1 { font-size: ms(6); line-height: ms(6) - 1px; }
+  h2 { font-size: ms(5); line-height: ms(5) - 1px; }
+  h3 { font-size: ms(4); line-height: ms(4) - 1px; }
+  h4 { font-size: ms(3); line-height: ms(3) - 1px; }
+  h5 { font-size: ms(2); line-height: ms(2) - 1px; }
+  h6 { font-size: ms(1); line-height: ms(1) - 1px; }
+
+  h1 {
+    font-family: $heading-font-family;
+  }
+
+  h2, h3, h4, h5, h6 {
+    margin: 1em 0 0.7em;
+    font-family: $header-subtitle-font-family;
+  }
+
+  h1 { color: $solar-blue; }
+  h2 { color: $solar-red; }
+  h3 { color: $solar-green; }
+  h4 { color: $solar-cyan; }
+  h5 { color: $solar-violet; }
+  h6 { color: $solar-orange; }
+
+  time {
+    color: $solar-yellow;
+    display: block;
+    font-family: $serif;
+    font-size: 10px;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+
+  time, p, ul, ol, blockquote {
+    margin-bottom: 15px;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  p:last-child, blockquote:last-child, li:last-child {
+    margin-bottom: 0;
+  }
+
+  ul, ol {
+    padding-left: 20px;
+  }
+
+  ul {
+    list-style-type: square;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  // pre { // done in _syntax.scss
+  //   @include border-radius(0.4em);
+  // }
+
+  code {
+    background: $base3;
+    @include border-radius(3px);
+    color: $solar-yellow;
+    font-size: 12px;
+    padding: 0 3px 1px;
+  }
+
+  blockquote {
+    // background: $base3;
+    border-left: 1px solid lighten($base1, 25%);
+    color: $base00;
+    font-style: italic;
+    padding: 5px 10px;
+  }
+}
+
+.ph1 {
+  color: $solar-cyan;
+  font-family: $heading-font-family;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+.ph2 {
+  border-top: 1px solid $base02;
+  margin: 10px 20px 0;
+  padding-top: 10px;
+}
+
+#sidebar {
+  overflow-y: scroll;
+  background: $base03;
+  color: $base01;
+  font-size: 0.85em;
+  height: 100%;
+  left: 0;
+  line-height: 15px;
+  position: fixed;
+  top: 0;
+  width: 280px;
+
+  a {
+    border-color: $base02;
+    color: $base01;
+
+    &:hover {
+      border-bottom-color: $base3;
+      color:$base3;
+    }
+  }
+
+  header {
+    border-bottom: 1px solid $base02;
+    margin: 0 20px;
+    padding: 40px 0 20px;
+
+    strong, em {
+      display: block;
+    }
+
+    strong {
+      font-family: $serif;
+      font-size: 21px;
+      font-weight: normal;
+    }
+
+    a {
+      color: $base3;
+
+      span {
+        color: $solar-blue;
+        font-size: 11px;
+        font-style: italic;
+      }
+    }
+
+    em {
+      @extend .ph1;
+    }
+  }
+
+  nav {
+    a {
+      border: none;
+      color: $solar-green;
+      display: block;
+      font-family: $serif;
+      font-size: 14px;
+      line-height: 20px;
+      padding: 5px 0 5px 20px;
+
+      &:hover {
+        background: $base02;
+        color: $solar-blue;
+      }
+
+      &:active {
+        top: 0;
+      }
+
+      &.solar {
+        background: $solar-red;
+        color: $base3;
+      }
+    }
+
+    time {
+      display: none;
+    }
+  }
+
+  aside {
+    float: left;
+    padding-bottom: 10px;
+    width: 100%;
+
+    h2 {
+      @extend .ph1;
+    }
+
+    section {
+      @extend .ph2;
+
+      &:first-child {
+        border: none;
+        margin: 0;
+      }
+
+      &:nth-child(3), &:nth-child(4) {
+        float: left;
+        width: 120px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 0;
+      }
+
+      &:nth-child(4) {
+        margin-left: 0;
+      }
+
+      &:first-child h2 {
+        display: none;
+        padding-left: 20px;
+      }
+    }
+  }
+}
+
+footer {
+  @extend .ph2;
+  clear: both;
+  padding-bottom: 40px;
+
+  em {
+    @extend .ph1;
+    float: left;
+    width: 50%;
+  }
+}
+
+@-moz-document url-prefix() {
+  aside section:nth-child(3), aside section:nth-child(4) {
+    width: 112px !important;
+  }
+}

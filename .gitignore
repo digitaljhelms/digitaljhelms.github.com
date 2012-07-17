@@ -3,6 +3,10 @@ _theme_packages/*
 
 oss/
 
+.sass-cache
+.pygments-cache
+.gist-cache
+
 Thumbs.db
 .DS_Store
 

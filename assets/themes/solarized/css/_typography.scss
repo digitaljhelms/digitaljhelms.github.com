@@ -1,0 +1,12 @@
+// source: https://github.com/imathis/octopress/blob/master/.themes/classic/sass/base/_typography.scss
+
+$sans: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$serif: Georgia, Times, "Times New Roman", serif !default;
+$mono: Menlo, Monaco, "Andale Mono", "Lucida Console", "Courier New", monospace !default;
+$heading-font-family: Georgia, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$header-title-font-family: $heading-font-family !default;
+$header-subtitle-font-family: $heading-font-family !default;
+
+.sans { font-family: $sans; }
+.serif { font-family: $serif; }
+.mono { font-family: $mono; }

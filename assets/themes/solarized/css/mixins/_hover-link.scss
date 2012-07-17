@@ -1,0 +1,9 @@
+// source: https://github.com/chriseppstein/compass/blob/stable/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss
+
+// a link that only has an underline when you hover over it
+@mixin hover-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

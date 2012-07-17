@@ -1,0 +1,12 @@
+// source: https://github.com/zurb/foundation/blob/master/stylesheets/foundation/_mixins.scss
+
+// Font size mixin to include px and rem
+@mixin font-size($size, $is-important: false) {
+  @if $is-important {
+    font-size: $size + px !important;
+    font-size: ($size / 10) + rem !important;
+  } @else {
+    font-size: $size + px;
+    font-size: ($size / 10) + rem;
+  }
+}

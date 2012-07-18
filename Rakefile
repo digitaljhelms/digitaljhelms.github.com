@@ -97,6 +97,7 @@ end # task :page
 
 desc "Launch preview environment"
 task :preview do
+  puts "Launching preview environment with Jekyll"
   system "jekyll --auto --server"
 end # task :preview
 

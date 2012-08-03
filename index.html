@@ -11,6 +11,8 @@ title:
   {{ first_post.content }}
 </article>
 
+{% include JB/comments %}
+
 <script type="text/javascript">
 $.domReady(function() {
   $('#sidebar nav li:first-child a').addClass("solar");

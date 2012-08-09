@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8"> 
+      <title>Sublime Text 2 CLI Project Helper &mdash; digitaljhelms</title>
+      <meta name="author" content="Jeremy Helms">
+      
+      <link rel="stylesheet" href="/assets/themes/solarized/css/screen.css" media="screen, projection" type="text/css">
+      <link rel="alternate" href="/atom.xml" type="application/atom+xml" title="digitaljhelms">
+      <link rel="icon" href="/favicon.ico">
+      <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <script src="/assets/themes/solarized/javascripts/ender.js" type="text/javascript"></script>
+      <script src="/assets/themes/solarized/javascripts/site.js" type="text/javascript"></script>
+  </head>
+  <body>
+    
+    
+<article data-id="st2-cli-project-helper-commands">
+  <h1>Sublime Text 2 CLI Project Helper </h1>
+  <time>28 June 2012</time>
+  <p>With this this helper function you can open a Sublime Text 2.0 project file (ex: <code>foobar.sublime-project</code>) from the command-line by simply typing <code>st -p foobar</code> instead of <code>subl --project foobar.sublime-project</code>. In the case where you have an existing ST2 window open, the project will always be opened in a new ST2 window.</p>
+
+<p>You can also supply additional ST2 options, such as the <code>-b</code> flag to open ST2 in the background, in the arguments list. One caveat to this is that, because <code>getopts</code> isn&#39;t being used to parse the options passed to bash, the <code>-p</code> flag and the project file &quot;shortname&quot; must be the first and second option passed to the shell function &#8211; basically, you can&#39;t do <code>st -b -p lig</code>, you have to do <code>st -p lig -b</code>.</p>
+
+<div><script src='https://gist.github.com/3014302.js?file='></script>
+<noscript><pre><code># bash alias
+alias subl='/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl'
+
+# bash function, usage: $ st -p [projectname] -opt2 -opt3
+function st() {
+  if [ -n &quot;$1&quot; -a -n &quot;$2&quot; ]; then # if more than one argument
+    if [ &quot;$1&quot; = &quot;-p&quot; -o &quot;$1&quot; = &quot;--project&quot; ]; then # if arg1 is -p or --project
+      local projectfile=&quot;$2&quot;
+      [[ $projectfile != *.sublime-project ]] &amp;&amp; projectfile=&quot;$2.sublime-project&quot; # detect if arg2 already includes the ext
+      if [ -e $projectfile ]; then # does project file exist?
+        subl -n --project $projectfile ${*:3} # open project file, in new window, include trailing args
+        #echo &quot;project specified, and project file exists, execute: subl -n --project $projectfile ${*:3}&quot;
+      else
+        subl ${*:3} # open sublime but drop -p||--project and project name from args
+        #echo &quot;project specified, but project file doesn't exist, execute: subl ${*:3}&quot;
+      fi
+    else
+      subl $* # open sublime and pass args as usual
+      #echo &quot;project argument not passed, execute: subl $*&quot;
+    fi
+  else
+    subl $* # open sublime and pass args as usual
+    #echo &quot;only 1 argument passed, execute: subl $*&quot;
+  fi
+}</code></pre></noscript></div>
+
+<p>I&#39;ve included a bit of rudimentary logic to ensure the project shortname you&#39;re passing actually matches a project file in the current directory, and if no match is found, the <code>-p</code> flag and project &quot;shortname&quot; are dropped from the command arguments (while the rest of the options remain) and ST2 is opened with an empty window (or new file, however you have configured ST2). May not be the desired behavior for some, but it works for me&#8230;</p>
+
+  
+</article>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_shortname = 'digitaljhelms'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+    <div id="sidebar">
+      <header>
+        <p><strong><a href="/">digitaljhelms<span>.github.com</span></a></strong></p>
+        <p><em>haphazard tech musings...</em></p>
+      </header>
+      <aside>
+        <section>
+          <nav>
+            <ul>
+              
+                <li>
+                  <a href="/squash-the-first-2-commits-in-a-git-repository">Squash the First 2 Commits in a Repo</a>
+                  <time>12 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/removing-items-from-js-arrays">Removing Items from JavaScript arrays</a>
+                  <time>06 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/creating-a-branch-with-no-parents-or-history">Creating a Git Branch w/out Parents</a>
+                  <time>02 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/st2-cli-project-helper-commands" class="solar">Sublime Text 2 CLI Project Helper</a>
+                  <time>28 Jun 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/build-and-install-git-from-source-on-osx-lion">Build & Install Git on OS X Lion</a>
+                  <time>14 Jun 2012</time>
+                </li>
+              
+            </ul>
+            <p><a href="/archive.html">More articles &gt;</a></p>
+          </nav>
+        </section>
+        <section>
+          <h2>about</h2>
+          <p><a href="http://www.alistapart.com/articles/proud/"><em>Web Developer</em></a> since 1995. Senior Software Architect and Client-Side Technology Lead at <a href="http://fluid.com">Fluid, Inc.</a> in San Francisco. Hibernating entrepreneur after 10 yrs of new venture risk & initiative.</p>
+        </section>
+        <section>
+          <h2>browse</h2>
+          <ul>
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </section>
+        <section>
+          <h2>elsewhere</h2>
+          <ul>
+            <li><a href="http://twitter.com/digitaljhelms">Twitter</a></li>
+            <li><a href="http://www.linkedin.com/in/digitaljhelms">LinkedIn</a></li>
+            <li><a href="http://www.facebook.com/digitaljhelms">Facebook</a></li>
+            <li><a href="/oss">Open Source</a></li>
+          </ul>
+        </section>
+      </aside>
+      <footer>
+        <ul>
+          <li><em>authored by</em> <a href="http://jeremyhelms.com">Jeremy Helms</a></li>
+          <li><em>designed by</em> <a href="http://jthom.as">JThomas</a></li>
+          <li><em>generated by</em> <a href="https://github.com/mojombo/jekyll">Jekyll</a></li>
+          <li><em>hosted on</em> <a href="https://github.com">GitHub</a> (<a href="https://github.com/digitaljhelms/digitaljhelms.github.com">source</a>)</li>
+        </ul>
+      </footer>
+    </div>
+    
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1325083-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8"> 
+      <title>Creating a Git Branch w/out Parents &mdash; digitaljhelms</title>
+      <meta name="author" content="Jeremy Helms">
+      
+      <link rel="stylesheet" href="/assets/themes/solarized/css/screen.css" media="screen, projection" type="text/css">
+      <link rel="alternate" href="/atom.xml" type="application/atom+xml" title="digitaljhelms">
+      <link rel="icon" href="/favicon.ico">
+      <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <script src="/assets/themes/solarized/javascripts/ender.js" type="text/javascript"></script>
+      <script src="/assets/themes/solarized/javascripts/site.js" type="text/javascript"></script>
+  </head>
+  <body>
+    
+    
+<article data-id="creating-a-branch-with-no-parents-or-history">
+  <h1>Creating a Git Branch w/out Parents </h1>
+  <time>02 July 2012</time>
+  <p><code>git checkout</code> has an <code>--orphan</code> option that will create a branch with no &quot;parents&quot; or relation at all to other branches/commits in the repository.</p>
+
+<p>From the man page:</p>
+
+<blockquote>
+<p>Create a new <em>orphan</em> branch, named &lt;new_branch&gt;, started from &lt;start_point&gt; and switch to it. The first commit made on this new branch will have no parents and it will be the root of a new history totally disconnected from all the other branches and commits.</p>
+
+<p>The index and the working tree are adjusted as if you had previously run <code>git checkout &lt;start_point&gt;</code>. This allows you to start a new history that records a set of paths similar to &lt;start_point&gt; by easily running <code>git commit -a</code> to make the root commit.</p>
+
+<p>This can be useful when you want to publish the tree from a commit without exposing its full history. You might want to do this to publish an open source branch of a project whose current tree is &quot;clean&quot;, but whose full history contains proprietary or otherwise encumbered bits of code.</p>
+
+<p>If you want to start a disconnected history that records a set of paths that is totally different from the one of &lt;start_point&gt;, then you should clear the index and the working tree right after creating the orphan branch by running <code>git rm -rf .</code> from the top level of the working tree. Afterwards you will be ready to prepare your new files, repopulating the working tree, by copying them from elsewhere, extracting a tarball, etc.</p>
+</blockquote>
+
+<p>When I shared this &quot;feature&quot; with a few colleagues, one response I received was:</p>
+
+<blockquote>
+<p>&quot;bizarre &#8211; why would you want that?&quot;</p>
+</blockquote>
+
+<p>A few possibilities:</p>
+
+<ol>
+<li><strong>Documentation</strong> &#8211; An <em>orphan</em> branch could be used to house your documentation within the project repository itself while keeping it from polluting actual code branch(es); the &quot;documentation&quot; branch would have it&#39;s own history, including initial commit and working tree. The documentation could even still be in wiki format, perhaps using Jekyll for static file generation.</li>
+<li><strong>Local Bootstrapping</strong> &#8211; Things like database schemas, sample data, and bootstrapping scripts for preparing a local development environment could live in an <em>orphan</em> branch, again, to keep from polluting the actual code branch(es) with material not frequently used.</li>
+<li><strong>Testing &amp; Deployment</strong> &#8211; Running scripts and utilities used to test, build, compile, and deploy a project is often the responsibility of a small subset of people on the project team (possibly only a single person) so these resources could easily be pushed into an <em>orphan</em> branch.</li>
+</ol>
+
+<p>Obviously there are other ways to handle all of these possibilities; for instance, hosting documentation in a GitHub Wiki, or pushing resources for bootstrapping, testing, and deployment into various <code>git-submodules</code> that are initialized/updated only if necessary.</p>
+
+<p>Regardless of the use-case, something to keep in mind when using an <em>orphan</em> branch: Communicate clearly to others who may interact with the repository what the branch is and how to work with it; blindly stumbling across an <em>orphan</em> branch could be pretty confusing.</p>
+
+  
+</article>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_shortname = 'digitaljhelms'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+    <div id="sidebar">
+      <header>
+        <p><strong><a href="/">digitaljhelms<span>.github.com</span></a></strong></p>
+        <p><em>haphazard tech musings...</em></p>
+      </header>
+      <aside>
+        <section>
+          <nav>
+            <ul>
+              
+                <li>
+                  <a href="/squash-the-first-2-commits-in-a-git-repository">Squash the First 2 Commits in a Repo</a>
+                  <time>12 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/removing-items-from-js-arrays">Removing Items from JavaScript arrays</a>
+                  <time>06 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/creating-a-branch-with-no-parents-or-history" class="solar">Creating a Git Branch w/out Parents</a>
+                  <time>02 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/st2-cli-project-helper-commands">Sublime Text 2 CLI Project Helper</a>
+                  <time>28 Jun 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/build-and-install-git-from-source-on-osx-lion">Build & Install Git on OS X Lion</a>
+                  <time>14 Jun 2012</time>
+                </li>
+              
+            </ul>
+            <p><a href="/archive.html">More articles &gt;</a></p>
+          </nav>
+        </section>
+        <section>
+          <h2>about</h2>
+          <p><a href="http://www.alistapart.com/articles/proud/"><em>Web Developer</em></a> since 1995. Senior Software Architect and Client-Side Technology Lead at <a href="http://fluid.com">Fluid, Inc.</a> in San Francisco. Hibernating entrepreneur after 10 yrs of new venture risk & initiative.</p>
+        </section>
+        <section>
+          <h2>browse</h2>
+          <ul>
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </section>
+        <section>
+          <h2>elsewhere</h2>
+          <ul>
+            <li><a href="http://twitter.com/digitaljhelms">Twitter</a></li>
+            <li><a href="http://www.linkedin.com/in/digitaljhelms">LinkedIn</a></li>
+            <li><a href="http://www.facebook.com/digitaljhelms">Facebook</a></li>
+            <li><a href="/oss">Open Source</a></li>
+          </ul>
+        </section>
+      </aside>
+      <footer>
+        <ul>
+          <li><em>authored by</em> <a href="http://jeremyhelms.com">Jeremy Helms</a></li>
+          <li><em>designed by</em> <a href="http://jthom.as">JThomas</a></li>
+          <li><em>generated by</em> <a href="https://github.com/mojombo/jekyll">Jekyll</a></li>
+          <li><em>hosted on</em> <a href="https://github.com">GitHub</a> (<a href="https://github.com/digitaljhelms/digitaljhelms.github.com">source</a>)</li>
+        </ul>
+      </footer>
+    </div>
+    
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1325083-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  </body>
+</html>

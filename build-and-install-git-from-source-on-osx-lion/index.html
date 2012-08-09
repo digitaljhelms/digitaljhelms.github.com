@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8"> 
+      <title>Build & Install Git on OS X Lion &mdash; digitaljhelms</title>
+      <meta name="author" content="Jeremy Helms">
+      
+      <link rel="stylesheet" href="/assets/themes/solarized/css/screen.css" media="screen, projection" type="text/css">
+      <link rel="alternate" href="/atom.xml" type="application/atom+xml" title="digitaljhelms">
+      <link rel="icon" href="/favicon.ico">
+      <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <script src="/assets/themes/solarized/javascripts/ender.js" type="text/javascript"></script>
+      <script src="/assets/themes/solarized/javascripts/site.js" type="text/javascript"></script>
+  </head>
+  <body>
+    
+    
+<article data-id="build-and-install-git-from-source-on-osx-lion">
+  <h1>Build & Install Git on OS X Lion </h1>
+  <time>14 June 2012</time>
+  <p>This outline for building and installing Git has only been tested against Mac OS X 10.7.x (Lion). While these steps may work for previous versions of Mac OS X, I cannot confirm this. <em>Furthermore, you&#39;re on your own, if you screw something up, it&#39;s not my fault.</em></p>
+
+<h2 id="toc_17">If you have Xcode 4, you have Git!</h2>
+
+<p>Xcode 4 includes the Git binary at the application level so it&#39;s available to itself (located at <code>/Applications/Xcode.app/Contents/Developer/usr/bin/git</code>). Additionally, Xcode 4 includes a new &quot;Downloads&quot; preference pane to install optional components, one of which are the Command Line Tools (similar to the Dev Tools package that shipped with older versions of Xcode) and once installed, Git (and many other utilities, such as <code>make</code>) is installed at the system level (located at <code>/usr/bin</code>).</p>
+
+<p><em>Note: You don&#39;t have to install Xcode to use the Command Line Tools; it can be downloaded independently from the Apple Developer site (you need to login, but it&#39;s free). Here&#39;s a direct link for the June 2012 download (dmg file): <a href="http://bit.ly/xcodeclt_062012">http://bit.ly/xcodeclt_062012</a></em></p>
+
+<h3 id="toc_18">If you don&#39;t want to use the version provided by Apple&#8230;</h3>
+
+<p>Now, because the the Git binary provided by Apple is placed in <code>/usr/bin</code> you need to make sure your <code>$PATH</code> environment variable is setup properly (see below) and that you install your own build of Git into <code>/usr/local/bin</code> for two reasons:</p>
+
+<ol>
+<li>Apple will silently overwrite whatever Git binary lives at <code>/usr/bin</code> whenever Xcode and/or the Command Line Tools are updated.</li>
+<li>If <code>/usr/bin</code> is in the <code>$PATH</code> variable BEFORE the location where you install your own build of the Git binary (I&#39;m suggesting <code>/usr/local/bin/git</code>) then the Apple binary located at <code>/usr/bin/git</code> will always be used when the git command is run.</li>
+</ol>
+
+<p>Unfortunately, Apple doesn&#39;t make managing the <code>$PATH</code> environment variable easy &#8211; there are nearly a dozen ways this variable can be set or changed. I&#39;ve done plenty of digging on this topic over the years, and here&#39;s the skinny (to my knowledge) listed in order of operation:</p>
+
+<ul>
+<li><code>/etc/profile</code> (interactive login shell, or as a non-interactive shell with the <code>--login</code> option, if exists)</li>
+<li><code>/etc/paths</code> (relies on <code>/usr/libexec/path_helper</code> being called from <code>/etc/profile</code>)</li>
+<li><code>/etc/paths.d/*</code> (relies on <code>/usr/libexec/path_helper</code> being * called from <code>/etc/profile</code>)</li>
+<li><code>/etc/bashrc</code> (sourced from <code>/etc/profile</code>, if exists)</li>
+<li><code>~/.bash_profile</code> (if exists)</li>
+<li><code>~/.bashrc</code> (optional, usually sourced from <code>.bash_profile</code>, if exists)</li>
+<li><code>~/.bash_login</code> (if <code>.bash_profile</code> does not exist)</li>
+<li><code>~/.profile</code> (if <code>.bash_login</code> does not exist)</li>
+<li><code>~/.MacOSX/environment.plist</code> (searched by <code>loginwindow</code>, useful for paths needed by CLI daemons)</li>
+</ul>
+
+<p>It&#39;s easy to get all twisted up here, but all you need to do is ensure <code>/usr/local/bin</code> is in the <code>$PATH</code> variable BEFORE <code>/usr/bin</code>. For me that simply meant reordering the directories listed in <code>/etc/paths</code> to the following, ensuring <code>/usr/local/bin</code> is first:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/usr/local/bin
+</span><span class='line'>/usr/bin
+</span><span class='line'>/usr/sbin
+</span><span class='line'>/bin
+</span><span class='line'>/sbin</span></code></pre></td></tr></table></div></figure>
+
+<p><em>Note: When making <code>$PATH</code> changes, you&#39;ll likely need to restart your console session (either a new window or a new tab) to test/verify your changes (which is as easy as <code>$ echo $PATH</code>).</em></p>
+
+<h2 id="toc_19">Building the Git binary</h2>
+
+<p>There are two ways to do this, the first uses Git (if you&#39;ve installed Command Line Tools, either with or without Xcode) and the second simply downloads a compressed archive of the files needed from the Google project page.</p>
+
+<h4 id="toc_20">Use Git to download Git</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/gitster/git.git<span class="sb">`</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>git<span class="sb">`</span>
+</span><span class='line'><span class="nv">$ </span>git fetch<span class="sb">`</span>
+</span><span class='line'><span class="nv">$ </span>git tag -v v1.7.10.4<span class="sb">`</span> <span class="c"># verify latest stable tag</span>
+</span><span class='line'><span class="nv">$ </span>git checkout v1.7.10.4<span class="sb">`</span> <span class="c"># checkout latest stable tag</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h4 id="toc_21">Download the Git files</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>curl -O http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz<span class="sb">`</span> <span class="c"># download the latest stable from [Google code](http://code.google.com/p/git-core/downloads/list)</span>
+</span><span class='line'><span class="nv">$ </span>tar -xzvf git-1.7.10.4.tar.gz
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>git-1.7.10.4
+</span></code></pre></td></tr></table></div></figure>
+
+<h3 id="toc_22">Configure &amp; Build</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>make configure<span class="sb">`</span> <span class="c"># this is optional, requires GNU Autoconf be installed</span>
+</span><span class='line'><span class="nv">$ </span>./configure --prefix<span class="o">=</span>/usr/local<span class="sb">`</span> <span class="c"># you can only run this if you&#39;ve run the command above</span>
+</span><span class='line'><span class="nv">$ </span>make <span class="nv">prefix</span><span class="o">=</span>/usr/local<span class="sb">`</span>
+</span><span class='line'><span class="nv">$ </span>sudo make <span class="nv">prefix</span><span class="o">=</span>/usr/local install<span class="sb">`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h2 id="toc_23">Building the Git documentation</h2>
+
+<p>A whole separate mission is getting the Git documentation to build on OS X. For the sake of time, here are the steps, and if anyone decides to dive in, feel free to ping me with questions on how I did it.</p>
+
+<ul>
+<li>Install AsciiDoc</li>
+<li>Install xmlto
+
+<ul>
+<li>Install getopt</li>
+<li>Install gettext</li>
+<li>Install DocBook</li>
+</ul></li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>make <span class="nv">prefix</span><span class="o">=</span>/usr/local doc
+</span><span class='line'><span class="nv">$ </span>sudo make <span class="nv">prefix</span><span class="o">=</span>/usr/local install-doc
+</span></code></pre></td></tr></table></div></figure>
+
+<h3 id="toc_24">An alternative (read FASTER/BETTER/EASIER) method&#8230;</h3>
+
+<p>If you&#39;re lazy (I wasn&#39;t, however I didn&#39;t learn about this &quot;alternative&quot; method until AFTER going through the steps above) there&#39;s a MUCH easier way to install the Git documentation:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> .. <span class="c"># the directory where you cloned the git repo (not into the git repo directory, but it&#39;s parent)</span>
+</span><span class='line'><span class="nv">$ </span>git clone https://github.com/gitster/git-manpages.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>git
+</span><span class='line'><span class="nv">$ </span>make <span class="nv">prefix</span><span class="o">=</span>/usr/local
+</span><span class='line'><span class="nv">$ </span>sudo make quick-install-man
+</span></code></pre></td></tr></table></div></figure>
+
+<h2 id="toc_25">tl;dr</h2>
+
+<p>This isn&#39;t for the faint of heart. If you skipped to down here, you should probably just download the <a href="http://code.google.com/p/git-osx-installer/">Git OS X Installer</a> package (generally one maintenance release behind latest), or use MacPorts or Homebrew both of which are current to the latest stable release of Git.</p>
+
+<h2 id="toc_26">Reference Links</h2>
+
+<ul>
+<li><a href="https://github.com/git/git/blob/master/INSTALL">https://github.com/git/git/blob/master/INSTALL</a></li>
+<li><a href="http://ayanim97.com/mac/installing-and-upgrading-git-mac-os-lion">http://ayanim97.com/mac/installing-and-upgrading-git-mac-os-lion</a></li>
+<li><a href="https://wincent.com/wiki/Installing_Git_1.7.9.3_on_Mac_OS_X_10.7.3">https://wincent.com/wiki/Installing_Git_1.7.9.3_on_Mac_OS_X_10.7.3</a></li>
+<li><a href="https://wincent.com/wiki/Updating_to_Git_1.7.10_on_Mac_OS_X_10.7.3">https://wincent.com/wiki/Updating_to_Git_1.7.10_on_Mac_OS_X_10.7.3</a></li>
+<li><a href="https://wincent.com/wiki/Setting_up_the_Git_documentation_build_chain_on_Mac_OS_X_Leopard">https://wincent.com/wiki/Setting_up_the_Git_documentation_build_chain_on_Mac_OS_X_Leopard</a></li>
+<li><a href="https://wincent.com/wiki/Installing_pre-built_Git_documentation_from_the_Git_repo#comment_7325">https://wincent.com/wiki/Installing_pre-built_Git_documentation_from_the_Git_repo#comment_7325</a></li>
+</ul>
+
+  
+</article>
+
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_shortname = 'digitaljhelms'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+    <div id="sidebar">
+      <header>
+        <p><strong><a href="/">digitaljhelms<span>.github.com</span></a></strong></p>
+        <p><em>haphazard tech musings...</em></p>
+      </header>
+      <aside>
+        <section>
+          <nav>
+            <ul>
+              
+                <li>
+                  <a href="/squash-the-first-2-commits-in-a-git-repository">Squash the First 2 Commits in a Repo</a>
+                  <time>12 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/removing-items-from-js-arrays">Removing Items from JavaScript arrays</a>
+                  <time>06 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/creating-a-branch-with-no-parents-or-history">Creating a Git Branch w/out Parents</a>
+                  <time>02 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/st2-cli-project-helper-commands">Sublime Text 2 CLI Project Helper</a>
+                  <time>28 Jun 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/build-and-install-git-from-source-on-osx-lion" class="solar">Build & Install Git on OS X Lion</a>
+                  <time>14 Jun 2012</time>
+                </li>
+              
+            </ul>
+            <p><a href="/archive.html">More articles &gt;</a></p>
+          </nav>
+        </section>
+        <section>
+          <h2>about</h2>
+          <p><a href="http://www.alistapart.com/articles/proud/"><em>Web Developer</em></a> since 1995. Senior Software Architect and Client-Side Technology Lead at <a href="http://fluid.com">Fluid, Inc.</a> in San Francisco. Hibernating entrepreneur after 10 yrs of new venture risk & initiative.</p>
+        </section>
+        <section>
+          <h2>browse</h2>
+          <ul>
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </section>
+        <section>
+          <h2>elsewhere</h2>
+          <ul>
+            <li><a href="http://twitter.com/digitaljhelms">Twitter</a></li>
+            <li><a href="http://www.linkedin.com/in/digitaljhelms">LinkedIn</a></li>
+            <li><a href="http://www.facebook.com/digitaljhelms">Facebook</a></li>
+            <li><a href="/oss">Open Source</a></li>
+          </ul>
+        </section>
+      </aside>
+      <footer>
+        <ul>
+          <li><em>authored by</em> <a href="http://jeremyhelms.com">Jeremy Helms</a></li>
+          <li><em>designed by</em> <a href="http://jthom.as">JThomas</a></li>
+          <li><em>generated by</em> <a href="https://github.com/mojombo/jekyll">Jekyll</a></li>
+          <li><em>hosted on</em> <a href="https://github.com">GitHub</a> (<a href="https://github.com/digitaljhelms/digitaljhelms.github.com">source</a>)</li>
+        </ul>
+      </footer>
+    </div>
+    
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1325083-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  </body>
+</html>

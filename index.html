@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8"> 
+      <title>digitaljhelms</title>
+      <meta name="author" content="Jeremy Helms">
+      
+      <link rel="stylesheet" href="/assets/themes/solarized/css/screen.css" media="screen, projection" type="text/css">
+      <link rel="alternate" href="/atom.xml" type="application/atom+xml" title="digitaljhelms">
+      <link rel="icon" href="/favicon.ico">
+      <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <script src="/assets/themes/solarized/javascripts/ender.js" type="text/javascript"></script>
+      <script src="/assets/themes/solarized/javascripts/site.js" type="text/javascript"></script>
+  </head>
+  <body>
+    
+    
+
+
+<article data-id="squash-the-first-2-commits-in-a-git-repository">
+  <h1>Squash the First 2 Commits in a Repo</h1>
+  <time>12 July 2012</time>
+  <h2 id="toc_31">The scenario</h2>
+
+<p>Your repository has two commits:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git log --oneline
+</span><span class='line'>957fbfb No, I am your father.
+</span><span class='line'>9bb71ff A long <span class="nb">time </span>ago in a galaxy far, far away....
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Use the interactive rebase tool to squash the two commits:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git rebase -i 9bb71ff
+</span></code></pre></td></tr></table></div></figure>
+
+<p>When your editor opens, only a single commit is listed:</p>
+<div class="highlight"><pre><code class="text">pick 957fbfb No, I am your father.
+</code></pre>
+</div>
+
+<p>You change <code>pick</code> to <code>squash</code>, save &amp; close your editor.</p>
+
+<h2 id="toc_32">The problem</h2>
+
+<p>Git complains&#8230;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>Cannot <span class="s1">&#39;squash&#39;</span> without a previous commit
+</span></code></pre></td></tr></table></div></figure>
+
+<h2 id="toc_33">The fix</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git rebase -i 9bb71ff
+</span></code></pre></td></tr></table></div></figure>
+
+<p>This time, when your editor opens, change <code>pick</code> to <code>edit</code> instead of <code>squash</code>, save &amp; close your editor.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git reset --soft HEAD^
+</span><span class='line'><span class="nv">$ </span>git commit --amend
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Your editor again so that you can modify the commit message of the soon-to-be squashed commit; make your changes, save &amp; close the editor.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git rebase --continue
+</span></code></pre></td></tr></table></div></figure>
+
+</article>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_shortname = 'digitaljhelms'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+<script type="text/javascript">
+$.domReady(function() {
+  $('#sidebar nav li:first-child a').addClass("solar");
+});
+</script>
+
+    <div id="sidebar">
+      <header>
+        <p><strong><a href="/">digitaljhelms<span>.github.com</span></a></strong></p>
+        <p><em>haphazard tech musings...</em></p>
+      </header>
+      <aside>
+        <section>
+          <nav>
+            <ul>
+              
+                <li>
+                  <a href="/squash-the-first-2-commits-in-a-git-repository">Squash the First 2 Commits in a Repo</a>
+                  <time>12 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/removing-items-from-js-arrays">Removing Items from JavaScript arrays</a>
+                  <time>06 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/creating-a-branch-with-no-parents-or-history">Creating a Git Branch w/out Parents</a>
+                  <time>02 Jul 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/st2-cli-project-helper-commands">Sublime Text 2 CLI Project Helper</a>
+                  <time>28 Jun 2012</time>
+                </li>
+              
+                <li>
+                  <a href="/build-and-install-git-from-source-on-osx-lion">Build & Install Git on OS X Lion</a>
+                  <time>14 Jun 2012</time>
+                </li>
+              
+            </ul>
+            <p><a href="/archive.html">More articles &gt;</a></p>
+          </nav>
+        </section>
+        <section>
+          <h2>about</h2>
+          <p><a href="http://www.alistapart.com/articles/proud/"><em>Web Developer</em></a> since 1995. Senior Software Architect and Client-Side Technology Lead at <a href="http://fluid.com">Fluid, Inc.</a> in San Francisco. Hibernating entrepreneur after 10 yrs of new venture risk & initiative.</p>
+        </section>
+        <section>
+          <h2>browse</h2>
+          <ul>
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </section>
+        <section>
+          <h2>elsewhere</h2>
+          <ul>
+            <li><a href="http://twitter.com/digitaljhelms">Twitter</a></li>
+            <li><a href="http://www.linkedin.com/in/digitaljhelms">LinkedIn</a></li>
+            <li><a href="http://www.facebook.com/digitaljhelms">Facebook</a></li>
+            <li><a href="/oss">Open Source</a></li>
+          </ul>
+        </section>
+      </aside>
+      <footer>
+        <ul>
+          <li><em>authored by</em> <a href="http://jeremyhelms.com">Jeremy Helms</a></li>
+          <li><em>designed by</em> <a href="http://jthom.as">JThomas</a></li>
+          <li><em>generated by</em> <a href="https://github.com/mojombo/jekyll">Jekyll</a></li>
+          <li><em>hosted on</em> <a href="https://github.com">GitHub</a> (<a href="https://github.com/digitaljhelms/digitaljhelms.github.com">source</a>)</li>
+        </ul>
+      </footer>
+    </div>
+    
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1325083-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  </body>
+</html>

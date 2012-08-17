@@ -4,6 +4,7 @@
       <meta charset="utf-8"> 
       <title>{% if page.title %}{{ page.title }} &mdash; {% endif %}digitaljhelms</title>
       <meta name="author" content="{{ site.author.name }}">
+      {% if site.JB.analytics.provider == "google" and site.JB.analytics.google.webmaster_tools != false %}<meta name="google-site-verification" content="{{ site.JB.analytics.google.webmaster_tools }}">{% endif %}
       {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
       <link rel="stylesheet" href="{{ ASSET_PATH }}/css/screen.css" media="screen, projection" type="text/css">
       <link rel="alternate" href="/atom.xml" type="application/atom+xml" title="digitaljhelms">

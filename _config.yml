@@ -108,6 +108,7 @@ JB:
     provider: google
     google:
         tracking_id: "UA-1325083-5"
+        webmaster_tools: "Iufbjqonp1JRSQxOmnKxtuIs74YCg-JXs8pgdvd3YtE"
     getclicky:
       site_id: 
     mixpanel:

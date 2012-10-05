@@ -3,6 +3,7 @@ http://digitaljhelms.github.com/archive.html
 http://digitaljhelms.github.com/assets/themes/solarized/css/screen.css
 http://digitaljhelms.github.com/atom.xml
 http://digitaljhelms.github.com/categories.html
+http://digitaljhelms.github.com/feed.xml
 http://digitaljhelms.github.com/index.html
 http://digitaljhelms.github.com/pages.html
 http://digitaljhelms.github.com/sitemap.txt

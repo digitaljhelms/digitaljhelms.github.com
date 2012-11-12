@@ -2,6 +2,8 @@ require "rubygems"
 require 'rake'
 require 'yaml'
 require 'time'
+require 'launchy'
+require 'timeout'
 
 SOURCE = "."
 CONFIG = {
@@ -98,7 +100,12 @@ end # task :page
 desc "Launch preview environment"
 task :preview do
   puts "Launching preview environment with Jekyll"
-  system "jekyll --auto --server"
+  thread = Thread.new do
+    system("jekyll --auto --server")
+  end
+  sleep 3; Launchy.open("http://0.0.0.0:4000")
+  trap("INT") { thread.terminate } # cleanly shutdown the thread on Ctrl-C / kill signal
+  thread.join # run the thread
 end # task :preview
 
 desc "Generate Jekyll site"

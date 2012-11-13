@@ -1,5 +1,5 @@
 <article data-id="{{ page.id | remove:'/' }}">
   <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
-  {% if page.date %}<time>{{ page.date | date_to_long_string }}</time>{% endif %}
+  {% if page.date %}<time datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date_to_long_string }}</time>{% endif %}
   {{ content }}
 </article>

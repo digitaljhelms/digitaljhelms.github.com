@@ -7,7 +7,7 @@ title:
 {% assign first_post = site.posts.first %}
 <article data-id="{{ first_post.id | remove:'/' }}">
   <h1>{{ first_post.title }}</h1>
-  {% if first_post.date %}<time>{{ first_post.date | date_to_long_string }}</time>{% endif %}
+  {% if first_post.date %}<time datetime="{{ first_post.date | date: "%Y-%m-%d" }}">{{ first_post.date | date_to_long_string }}</time>{% endif %}
   {{ first_post.content }}
 </article>
 

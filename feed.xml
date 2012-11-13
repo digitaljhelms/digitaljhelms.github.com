@@ -7,6 +7,64 @@
     <atom:link href="http://digitaljhelms.github.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <author>digitaljhelms@gmail.com (Jeremy Helms)</author>
+      <title>HTML Email Guidelines</title>
+      <description><![CDATA[&lt;p&gt;I was recently asked to evaluate an HTML email newsletter template and provide my &lt;em&gt;professional&lt;/em&gt; opinion. Unfortunately (or fortunately, however you want to look at it) I haven&amp;#39;t done email development in nearly a decade. So, naturally, I conducted a bit of due diligence to base my opinion against, and to my surprise, not much has changed in the last decade as far as HTML email goes. Regardless, here are my findings, for posterities sake&amp;#8230;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Mind your &lt;code&gt;HEAD&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;You can&amp;#39;t avoid a &lt;code&gt;DOCTYPE&lt;/code&gt;.&lt;/strong&gt; Many email clients strip your &lt;code&gt;DOCTYPE&lt;/code&gt; and either impose their own or leave it out entirely. This means you need to test both with and without a &lt;code&gt;DOCTYPE&lt;/code&gt; to ensure your syntax renders how it should.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Don&amp;#39;t embed in the &lt;code&gt;HEAD&lt;/code&gt;.&lt;/strong&gt; Browser-based email services, like Gmail, Yahoo! Mail, Hotmail, etc., generally strip out &lt;code&gt;DOCTYPE&lt;/code&gt;, &lt;code&gt;BODY&lt;/code&gt;, and &lt;code&gt;HEAD&lt;/code&gt; tags. Anything included within those tags, or as attributes on those tags (such as &lt;code&gt;bgcolor&lt;/code&gt;, CSS, JavaScript, etc) runs the risk of being stripped.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Use tables for layout
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Set the width in each cell, not the table.&lt;/strong&gt; When you combine &lt;code&gt;table&lt;/code&gt; widths, &lt;code&gt;td&lt;/code&gt; widths, &lt;code&gt;td&lt;/code&gt; padding and CSS padding into an email, the final result is different in almost every email client. The most reliable way to set the width of your table is to set a width for each cell, not for the table itself.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Err toward nesting.&lt;/strong&gt; Table nesting is far more reliable than setting left and right margins or padding for table cells.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use a container table for body background colors.&lt;/strong&gt; Many email clients ignore background colors specified in your CSS or the &lt;code&gt;BODY&lt;/code&gt; tag. To work around this, wrap your entire email with a 100% width table and give that a background color.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;CSS and font formatting
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Do you best to avoid CSS altogether.&lt;/strong&gt; But, if CSS is a must, make sure you move your CSS inline and review the &lt;a href=&quot;http://www.campaignmonitor.com/css/&quot;&gt;list of CSS support&lt;/a&gt; across the major clients for a good idea of the safe properties and those that should be avoided.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Avoid shorthand.&lt;/strong&gt; A number of email clients reject CSS shorthand for the font property as well as hex notation.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Avoid using paragraphs.&lt;/strong&gt; If part of your design is height-sensitive and calls for pixel perfection, avoid the paragraph tag altogether and set the text formatting inline in a table cell.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Link colors may be overwritten.&lt;/strong&gt; If link color is important to your design, can avoid it being &amp;quot;reset&amp;quot; by setting a default color for each link inline and then adding a redundant &lt;code&gt;span&lt;/code&gt; inside the a tag.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Images in HTML
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Avoid spacer images.&lt;/strong&gt; Most email clients replace images with an empty placeholder in the same dimensions, others strip the image altogether. Stick to fixed cell widths to keep your formatting in place with or without images.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Always include the dimensions of your image.&lt;/strong&gt; A number of clients will invent their own sizes when images are blocked and break your layout. Also, ensure that any images are correctly sized before adding them to your email; some email clients will ignore the dimensions specified in code and rely on the true dimensions of the image.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Avoid PNG images.&lt;/strong&gt; Some email clients don&amp;#39;t support 8-bit or 24-bit PNG images, so stick with the GIF or JPG.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Don&amp;#39;t use background images.&lt;/strong&gt; Some email clients have no support for background images. There are hacks to get full page background images working, but monkey-patching should be a last resort.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use the display hack for Hotmail.&lt;/strong&gt; Windows Live Hotmail adds a few pixels of additional padding below images. A workaround is to set &lt;code&gt;display:block&lt;/code&gt; for images.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Don&amp;#39;t use floats.&lt;/strong&gt; Some email clients offer no support for the &lt;code&gt;float&lt;/code&gt; property. Instead, use the &lt;code&gt;align&lt;/code&gt; attribute of the &lt;code&gt;img&lt;/code&gt; tag to float images in your email.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use absolute paths.&lt;/strong&gt; Images should be hosted on a publicly accessible web server and the image source should point to the full URL.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Video in email
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Quite simply, don&amp;#39;t do it.&lt;/strong&gt; There is no support for JavaScript or the &lt;code&gt;object&lt;/code&gt; tag in email and very few email clients support HTML5 video.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Think small
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Stay within the constraints of 550-650px.&lt;/strong&gt; Most people view messages in their preview panes, which are narrow and small; for instance, the preview pane in AOL 9 is less than 200 pixels wide. Templates designed by MailChimp and Campaign Monitor are never more than 600 pixels wide.
+&lt;blockquote cite=&quot;http://www.campaignmonitor.com/blog/post/3481/how-wide-are-html-email-designs-today/&quot;&gt;Many email client preview panes are still not suitable for emails exceeding 650px wide. Gauging from a purely non-scientific sample &amp;#8211; 467 reader votes received &amp;#8211; this seems to be common knowledge amongst designers: A whopping 74% of votes were for a maximum email width of 550-650px. 90% of this segment voted explicitly for a width of 600px.&lt;br&gt;&amp;#8211; &lt;a href=&quot;http://www.campaignmonitor.com/blog/post/3481/how-wide-are-html-email-designs-today/&quot;&gt;Campaign Monitor&lt;/a&gt;&lt;/blockquote&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mobile screens are much smaller.&lt;/strong&gt; The most common mobile email readers are in a range of 320px. The iPhone allows for a 300px width when held vertically and a 480px width in landscape mode. The iPhone also resize email content to fit the screen, but many other smart phones don&amp;#39;t, so it makes sense to design for the lowest common denominator.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+]]></description>
+      <pubDate>Fri, 09 Nov 2012 07:11:22 -0600</pubDate>
+      <link>http://digitaljhelms.github.com/html-email-guidelines</link>
+      <guid isPermaLink="true">http://digitaljhelms.github.com/html-email-guidelines</guid>
+      <category>html</category>
+      <category>email</category>
+    </item>
+    <item>
+      <author>digitaljhelms@gmail.com (Jeremy Helms)</author>
       <title>Squash the First 2 Commits in a Repo</title>
       <description><![CDATA[&lt;h2 id=&quot;toc_31&quot;&gt;The scenario&lt;/h2&gt;
 

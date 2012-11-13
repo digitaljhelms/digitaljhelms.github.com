@@ -9,6 +9,7 @@ http://digitaljhelms.github.com/pages.html
 http://digitaljhelms.github.com/sitemap.txt
 http://digitaljhelms.github.com/tags.html
 
+http://digitaljhelms.github.com/html-email-guidelines
 http://digitaljhelms.github.com/squash-the-first-2-commits-in-a-git-repository
 http://digitaljhelms.github.com/removing-items-from-js-arrays
 http://digitaljhelms.github.com/creating-a-branch-with-no-parents-or-history

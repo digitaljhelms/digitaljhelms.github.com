@@ -54,17 +54,17 @@ There are two ways to do this, the first uses Git (if you've installed Command L
 #### Use Git to download Git
 
 ``` sh
-$ git clone git://github.com/gitster/git.git`
-$ cd git`
-$ git fetch`
-$ git tag -v v1.7.10.4` # verify latest stable tag
-$ git checkout v1.7.10.4` # checkout latest stable tag
+$ git clone git://github.com/gitster/git.git
+$ cd git
+$ git fetch
+$ git tag -v v1.7.10.4 # verify latest stable tag
+$ git checkout v1.7.10.4 # checkout latest stable tag
 ```
 
 #### Download the Git files
 
 ``` sh
-$ curl -O http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz` # download the latest stable from [Google code](http://code.google.com/p/git-core/downloads/list)
+$ curl -O http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz # download the latest stable from [Google code](http://code.google.com/p/git-core/downloads/list)
 $ tar -xzvf git-1.7.10.4.tar.gz
 $ cd git-1.7.10.4
 ```
@@ -72,10 +72,10 @@ $ cd git-1.7.10.4
 ### Configure & Build
 
 ``` sh
-$ make configure` # this is optional, requires GNU Autoconf be installed
-$ ./configure --prefix=/usr/local` # you can only run this if you've run the command above
-$ make prefix=/usr/local`
-$ sudo make prefix=/usr/local install`
+$ make configure # this is optional, requires GNU Autoconf be installed
+$ ./configure --prefix=/usr/local # you can only run this if you've run the command above
+$ make prefix=/usr/local
+$ sudo make prefix=/usr/local install
 ```
 
 ## Building the Git documentation

@@ -4,18 +4,18 @@
   <subtitle type="html">haphazard tech musings&#8230;</subtitle>
   <link href="http://digitaljhelms.github.com/atom.xml" rel="self"/>
   <link href="http://digitaljhelms.github.com/"/>
-  <updated>2012-11-13T00:06:04-06:00</updated>
+  <updated>2013-01-11T17:08:48-06:00</updated>
   <id>http://digitaljhelms.github.com/</id>
   <author>
     <name>Jeremy Helms</name>
     <email>digitaljhelms@gmail.com</email>
   </author>
   <generator uri="https://github.com/mojombo/jekyll/tree/v0.11.2" version="0.11.2">Jekyll</generator>
-  <rights>Copyright (c) 2012, Jeremy Helms</rights>
+  <rights>Copyright (c) 2013, Jeremy Helms</rights>
   <entry>
     <title>HTML Email Guidelines</title>
     <link href="http://digitaljhelms.github.com/html-email-guidelines"/>
-    <updated>2012-11-09T07:11:22-06:00</updated>
+    <updated>2012-11-09T13:11:22-06:00</updated>
     <id>http://digitaljhelms.github.com/html-email-guidelines</id>
     <summary>I was recently asked to evaluate an HTML email newsletter template and provide my professional opinion. Unfortunately (or fortunately, however you want to look at it) I haven&#39;t done email development in nearly a decade. So, naturally, I conducted a bit of due diligence to base my opinion against, and to my surprise, not much &hellip;</summary>
     <content type="html">&lt;p&gt;I was recently asked to evaluate an HTML email newsletter template and provide my &lt;em&gt;professional&lt;/em&gt; opinion. Unfortunately (or fortunately, however you want to look at it) I haven&amp;#39;t done email development in nearly a decade. So, naturally, I conducted a bit of due diligence to base my opinion against, and to my surprise, not much has changed in the last decade as far as HTML email goes. Regardless, here are my findings, for posterities sake&amp;#8230;&lt;/p&gt;
@@ -73,7 +73,7 @@
   <entry>
     <title>Squash the First 2 Commits in a Repo</title>
     <link href="http://digitaljhelms.github.com/squash-the-first-2-commits-in-a-git-repository"/>
-    <updated>2012-07-12T15:58:10-05:00</updated>
+    <updated>2012-07-12T20:58:10-05:00</updated>
     <id>http://digitaljhelms.github.com/squash-the-first-2-commits-in-a-git-repository</id>
     <summary>The scenarioYour repository has two commits:123$ git log &#8211;oneline957fbfb No, I am your father.9bb71ff A long time ago in a galaxy far, far away&#8230;.Use the interactive rebase tool to squash the two commits:1$ git rebase -i 9bb71ffWhen your editor opens, only a single commit is listed:pick 957fbfb No, I am your father.You change pick to &hellip;</summary>
     <content type="html">&lt;h2 id=&quot;toc_31&quot;&gt;The scenario&lt;/h2&gt;
@@ -134,7 +134,7 @@
   <entry>
     <title>Removing Items from JavaScript arrays</title>
     <link href="http://digitaljhelms.github.com/removing-items-from-js-arrays"/>
-    <updated>2012-07-06T06:35:08-05:00</updated>
+    <updated>2012-07-06T11:35:08-05:00</updated>
     <id>http://digitaljhelms.github.com/removing-items-from-js-arrays</id>
     <summary>&quot;Using&quot; the delete operatorWhen you delete an array element using the delete operator, the array length is not affected. For example if you delete arr[2], arr[3] is still arr[3] and arr[2] is undefined.123456arr = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]delete arr[2]// truearr// [&quot;a&quot;, &quot;b&quot;, undefined, &quot;d&quot;]Using the splice methodOne technique for removing content &hellip;</summary>
     <content type="html">&lt;h2 id=&quot;toc_27&quot;&gt;&amp;quot;Using&amp;quot; the &lt;code&gt;delete&lt;/code&gt; operator&lt;/h2&gt;
@@ -272,7 +272,7 @@
   <entry>
     <title>Creating a Git Branch w/out Parents</title>
     <link href="http://digitaljhelms.github.com/creating-a-branch-with-no-parents-or-history"/>
-    <updated>2012-07-02T12:05:35-05:00</updated>
+    <updated>2012-07-02T17:05:35-05:00</updated>
     <id>http://digitaljhelms.github.com/creating-a-branch-with-no-parents-or-history</id>
     <summary>git checkout has an &#8211;orphan option that will create a branch with no &quot;parents&quot; or relation at all to other branches/commits in the repository.From the man page:Create a new orphan branch, named &lt;new_branch&gt;, started from &lt;start_point&gt; and switch to it. The first commit made on this new branch will have no parents and it will &hellip;</summary>
     <content type="html">&lt;p&gt;&lt;code&gt;git checkout&lt;/code&gt; has an &lt;code&gt;&#8211;orphan&lt;/code&gt; option that will create a branch with no &amp;quot;parents&amp;quot; or relation at all to other branches/commits in the repository.&lt;/p&gt;
@@ -312,7 +312,7 @@
   <entry>
     <title>Sublime Text 2 CLI Project Helper</title>
     <link href="http://digitaljhelms.github.com/st2-cli-project-helper-commands"/>
-    <updated>2012-06-28T10:08:31-05:00</updated>
+    <updated>2012-06-28T15:08:31-05:00</updated>
     <id>http://digitaljhelms.github.com/st2-cli-project-helper-commands</id>
     <summary>With this this helper function you can open a Sublime Text 2.0 project file (ex: foobar.sublime-project) from the command-line by simply typing st -p foobar instead of subl &#8211;project foobar.sublime-project. In the case where you have an existing ST2 window open, the project will always be opened in a new ST2 window.You can also supply &hellip;</summary>
     <content type="html">&lt;p&gt;With this this helper function you can open a Sublime Text 2.0 project file (ex: &lt;code&gt;foobar.sublime-project&lt;/code&gt;) from the command-line by simply typing &lt;code&gt;st -p foobar&lt;/code&gt; instead of &lt;code&gt;subl &#8211;project foobar.sublime-project&lt;/code&gt;. In the case where you have an existing ST2 window open, the project will always be opened in a new ST2 window.&lt;/p&gt;
@@ -355,7 +355,7 @@ function st() {
   <entry>
     <title>Build & Install Git on OS X Lion</title>
     <link href="http://digitaljhelms.github.com/build-and-install-git-from-source-on-osx-lion"/>
-    <updated>2012-06-14T05:07:21-05:00</updated>
+    <updated>2012-06-14T10:07:21-05:00</updated>
     <id>http://digitaljhelms.github.com/build-and-install-git-from-source-on-osx-lion</id>
     <summary>This outline for building and installing Git has only been tested against Mac OS X 10.7.x (Lion). While these steps may work for previous versions of Mac OS X, I cannot confirm this. Furthermore, you&#39;re on your own, if you screw something up, it&#39;s not my fault.If you have Xcode 4, you have Git!Xcode 4 &hellip;</summary>
     <content type="html">&lt;p&gt;This outline for building and installing Git has only been tested against Mac OS X 10.7.x (Lion). While these steps may work for previous versions of Mac OS X, I cannot confirm this. &lt;em&gt;Furthermore, you&amp;#39;re on your own, if you screw something up, it&amp;#39;s not my fault.&lt;/em&gt;&lt;/p&gt;
@@ -415,11 +415,11 @@ function st() {
 &lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;5&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;sh&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git://github.com/gitster/git.git&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;git&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git fetch&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git tag -v v1.7.10.4&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# verify latest stable tag&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout v1.7.10.4&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# checkout latest stable tag&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;sh&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git://github.com/gitster/git.git
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;git
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git fetch
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git tag -v v1.7.10.4 &lt;span class=&quot;c&quot;&gt;# verify latest stable tag&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout v1.7.10.4 &lt;span class=&quot;c&quot;&gt;# checkout latest stable tag&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 
 &lt;h4 id=&quot;toc_21&quot;&gt;Download the Git files&lt;/h4&gt;
@@ -427,7 +427,7 @@ function st() {
 &lt;figure class=&#8217;code&#8217;&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;/figcaption&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;sh&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl -O http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# download the latest stable from [Google code](http://code.google.com/p/git-core/downloads/list)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;sh&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl -O http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz &lt;span class=&quot;c&quot;&gt;# download the latest stable from [Google code](http://code.google.com/p/git-core/downloads/list)&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tar -xzvf git-1.7.10.4.tar.gz
 &lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;git-1.7.10.4
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
@@ -438,10 +438,10 @@ function st() {
 &lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;sh&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make configure&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# this is optional, requires GNU Autoconf be installed&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure &#8211;prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# you can only run this if you&amp;#39;ve run the command above&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local install&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;sh&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make configure &lt;span class=&quot;c&quot;&gt;# this is optional, requires GNU Autoconf be installed&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure &#8211;prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local &lt;span class=&quot;c&quot;&gt;# you can only run this if you&amp;#39;ve run the command above&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local install
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;toc_23&quot;&gt;Building the Git documentation&lt;/h2&gt;
@@ -502,7 +502,7 @@ function st() {
   <entry>
     <title>Installing & Using Gource on OS X</title>
     <link href="http://digitaljhelms.github.com/installing-and-using-gource-on-osx"/>
-    <updated>2011-11-09T13:10:43-06:00</updated>
+    <updated>2011-11-09T19:10:43-06:00</updated>
     <id>http://digitaljhelms.github.com/installing-and-using-gource-on-osx</id>
     <summary>Gource is a software version control visualization tool.Software projects are displayed by Gource as an animated tree with the root directory of the project at its centre. Directories appear as branches with files as leaves. Developers can be seen working on the tree at the times they contributed to the project.http://code.google.com/p/gource/Installing Gource Manually (w/out MacPorts &hellip;</summary>
     <content type="html">&lt;blockquote&gt;

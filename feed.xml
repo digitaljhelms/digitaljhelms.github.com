@@ -57,7 +57,7 @@
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ol&gt;
 ]]></description>
-      <pubDate>Fri, 09 Nov 2012 07:11:22 -0600</pubDate>
+      <pubDate>Fri, 09 Nov 2012 13:11:22 -0600</pubDate>
       <link>http://digitaljhelms.github.com/html-email-guidelines</link>
       <guid isPermaLink="true">http://digitaljhelms.github.com/html-email-guidelines</guid>
       <category>html</category>
@@ -119,7 +119,7 @@
 &lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git rebase --continue
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 ]]></description>
-      <pubDate>Thu, 12 Jul 2012 15:58:10 -0500</pubDate>
+      <pubDate>Thu, 12 Jul 2012 20:58:10 -0500</pubDate>
       <link>http://digitaljhelms.github.com/squash-the-first-2-commits-in-a-git-repository</link>
       <guid isPermaLink="true">http://digitaljhelms.github.com/squash-the-first-2-commits-in-a-git-repository</guid>
       <category>git</category>
@@ -257,7 +257,7 @@
 &lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;c1&quot;&gt;// [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;d&amp;quot;]&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 ]]></description>
-      <pubDate>Fri, 06 Jul 2012 06:35:08 -0500</pubDate>
+      <pubDate>Fri, 06 Jul 2012 11:35:08 -0500</pubDate>
       <link>http://digitaljhelms.github.com/removing-items-from-js-arrays</link>
       <guid isPermaLink="true">http://digitaljhelms.github.com/removing-items-from-js-arrays</guid>
       <category>javascript</category>
@@ -297,7 +297,7 @@
 
 &lt;p&gt;Regardless of the use-case, something to keep in mind when using an &lt;em&gt;orphan&lt;/em&gt; branch: Communicate clearly to others who may interact with the repository what the branch is and how to work with it; blindly stumbling across an &lt;em&gt;orphan&lt;/em&gt; branch could be pretty confusing.&lt;/p&gt;
 ]]></description>
-      <pubDate>Mon, 02 Jul 2012 12:05:35 -0500</pubDate>
+      <pubDate>Mon, 02 Jul 2012 17:05:35 -0500</pubDate>
       <link>http://digitaljhelms.github.com/creating-a-branch-with-no-parents-or-history</link>
       <guid isPermaLink="true">http://digitaljhelms.github.com/creating-a-branch-with-no-parents-or-history</guid>
       <category>git</category>
@@ -338,7 +338,7 @@ function st() {
 
 &lt;p&gt;I&amp;#39;ve included a bit of rudimentary logic to ensure the project shortname you&amp;#39;re passing actually matches a project file in the current directory, and if no match is found, the &lt;code&gt;-p&lt;/code&gt; flag and project &amp;quot;shortname&amp;quot; are dropped from the command arguments (while the rest of the options remain) and ST2 is opened with an empty window (or new file, however you have configured ST2). May not be the desired behavior for some, but it works for me&amp;#8230;&lt;/p&gt;
 ]]></description>
-      <pubDate>Thu, 28 Jun 2012 10:08:31 -0500</pubDate>
+      <pubDate>Thu, 28 Jun 2012 15:08:31 -0500</pubDate>
       <link>http://digitaljhelms.github.com/st2-cli-project-helper-commands</link>
       <guid isPermaLink="true">http://digitaljhelms.github.com/st2-cli-project-helper-commands</guid>
       <category>git</category>
@@ -405,11 +405,11 @@ function st() {
 &lt;span class='line-number'&gt;3&lt;/span&gt;
 &lt;span class='line-number'&gt;4&lt;/span&gt;
 &lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git://github.com/gitster/git.git&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;git&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git fetch&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git tag -v v1.7.10.4&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# verify latest stable tag&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout v1.7.10.4&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# checkout latest stable tag&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git://github.com/gitster/git.git
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;git
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git fetch
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git tag -v v1.7.10.4 &lt;span class=&quot;c&quot;&gt;# verify latest stable tag&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout v1.7.10.4 &lt;span class=&quot;c&quot;&gt;# checkout latest stable tag&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 
 &lt;h4 id=&quot;toc_21&quot;&gt;Download the Git files&lt;/h4&gt;
@@ -417,7 +417,7 @@ function st() {
 &lt;figure class='code'&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;/figcaption&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
 &lt;span class='line-number'&gt;2&lt;/span&gt;
 &lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl -O http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# download the latest stable from [Google code](http://code.google.com/p/git-core/downloads/list)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl -O http://git-core.googlecode.com/files/git-1.7.10.4.tar.gz &lt;span class=&quot;c&quot;&gt;# download the latest stable from [Google code](http://code.google.com/p/git-core/downloads/list)&lt;/span&gt;
 &lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tar -xzvf git-1.7.10.4.tar.gz
 &lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;git-1.7.10.4
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
@@ -428,10 +428,10 @@ function st() {
 &lt;span class='line-number'&gt;2&lt;/span&gt;
 &lt;span class='line-number'&gt;3&lt;/span&gt;
 &lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make configure&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# this is optional, requires GNU Autoconf be installed&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure --prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# you can only run this if you&amp;#39;ve run the command above&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local install&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make configure &lt;span class=&quot;c&quot;&gt;# this is optional, requires GNU Autoconf be installed&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure --prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local &lt;span class=&quot;c&quot;&gt;# you can only run this if you&amp;#39;ve run the command above&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo make &lt;span class=&quot;nv&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local install
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;toc_23&quot;&gt;Building the Git documentation&lt;/h2&gt;
@@ -486,7 +486,7 @@ function st() {
 &lt;li&gt;&lt;a href=&quot;https://wincent.com/wiki/Installing_pre-built_Git_documentation_from_the_Git_repo#comment_7325&quot;&gt;https://wincent.com/wiki/Installing_pre-built_Git_documentation_from_the_Git_repo#comment_7325&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 ]]></description>
-      <pubDate>Thu, 14 Jun 2012 05:07:21 -0500</pubDate>
+      <pubDate>Thu, 14 Jun 2012 10:07:21 -0500</pubDate>
       <link>http://digitaljhelms.github.com/build-and-install-git-from-source-on-osx-lion</link>
       <guid isPermaLink="true">http://digitaljhelms.github.com/build-and-install-git-from-source-on-osx-lion</guid>
       <category>git</category>
@@ -736,7 +736,7 @@ close GITLOG;&lt;/code&gt;&lt;/pre&gt;&lt;/noscript&gt;&lt;/div&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gource --user-image-dir .git/avatar/
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 ]]></description>
-      <pubDate>Wed, 09 Nov 2011 13:10:43 -0600</pubDate>
+      <pubDate>Wed, 09 Nov 2011 19:10:43 -0600</pubDate>
       <link>http://digitaljhelms.github.com/installing-and-using-gource-on-osx</link>
       <guid isPermaLink="true">http://digitaljhelms.github.com/installing-and-using-gource-on-osx</guid>
       <category>gource</category>

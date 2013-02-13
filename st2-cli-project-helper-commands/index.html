@@ -27,32 +27,57 @@
 
 <p>You can also supply additional ST2 options, such as the <code>-b</code> flag to open ST2 in the background, in the arguments list. One caveat to this is that, because <code>getopts</code> isn&#39;t being used to parse the options passed to bash, the <code>-p</code> flag and the project file &quot;shortname&quot; must be the first and second option passed to the shell function &#8211; basically, you can&#39;t do <code>st -b -p lig</code>, you have to do <code>st -p lig -b</code>.</p>
 
-<div><script src='https://gist.github.com/3014302.js?file='></script>
-<noscript><pre><code># bash alias
-alias subl='/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl'
-
-# bash function, usage: $ st -p [projectname] -opt2 -opt3
-function st() {
-  if [ -n &quot;$1&quot; -a -n &quot;$2&quot; ]; then # if more than one argument
-    if [ &quot;$1&quot; = &quot;-p&quot; -o &quot;$1&quot; = &quot;--project&quot; ]; then # if arg1 is -p or --project
-      local projectfile=&quot;$2&quot;
-      [[ $projectfile != *.sublime-project ]] &amp;&amp; projectfile=&quot;$2.sublime-project&quot; # detect if arg2 already includes the ext
-      if [ -e $projectfile ]; then # does project file exist?
-        subl -n --project $projectfile ${*:3} # open project file, in new window, include trailing args
-        #echo &quot;project specified, and project file exists, execute: subl -n --project $projectfile ${*:3}&quot;
-      else
-        subl ${*:3} # open sublime but drop -p||--project and project name from args
-        #echo &quot;project specified, but project file doesn't exist, execute: subl ${*:3}&quot;
-      fi
-    else
-      subl $* # open sublime and pass args as usual
-      #echo &quot;project argument not passed, execute: subl $*&quot;
-    fi
-  else
-    subl $* # open sublime and pass args as usual
-    #echo &quot;only 1 argument passed, execute: subl $*&quot;
-  fi
-}</code></pre></noscript></div>
+<figure class='code'><figcaption><span>ST2 bash alias & CLI function </span><a href='https://gist.github.com/digitaljhelms/3014302'>gistfile1.sh</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># bash alias</span>
+</span><span class='line'><span class="nb">alias </span><span class="nv">subl</span><span class="o">=</span><span class="s1">&#39;/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># bash function, usage: $ st -p [projectname] -opt2 -opt3</span>
+</span><span class='line'><span class="k">function </span>st<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$1&quot;</span> -a -n <span class="s2">&quot;$2&quot;</span> <span class="o">]</span>; <span class="k">then</span> <span class="c"># if more than one argument</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$1&quot;</span> <span class="o">=</span> <span class="s2">&quot;-p&quot;</span> -o <span class="s2">&quot;$1&quot;</span> <span class="o">=</span> <span class="s2">&quot;--project&quot;</span> <span class="o">]</span>; <span class="k">then</span> <span class="c"># if arg1 is -p or --project</span>
+</span><span class='line'>      <span class="nb">local </span><span class="nv">projectfile</span><span class="o">=</span><span class="s2">&quot;$2&quot;</span>
+</span><span class='line'>      <span class="o">[[</span> <span class="nv">$projectfile</span> !<span class="o">=</span> *.sublime-project <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">projectfile</span><span class="o">=</span><span class="s2">&quot;$2.sublime-project&quot;</span> <span class="c"># detect if arg2 already includes the ext</span>
+</span><span class='line'>      <span class="k">if</span> <span class="o">[</span> -e <span class="nv">$projectfile</span> <span class="o">]</span>; <span class="k">then</span> <span class="c"># does project file exist?</span>
+</span><span class='line'>        subl -n --project <span class="nv">$projectfile</span> <span class="k">${</span><span class="p">*:</span><span class="nv">3</span><span class="k">}</span> <span class="c"># open project file, in new window, include trailing args</span>
+</span><span class='line'>        <span class="c">#echo &quot;project specified, and project file exists, execute: subl -n --project $projectfile ${*:3}&quot;</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'><span class="k">        </span>subl <span class="k">${</span><span class="p">*:</span><span class="nv">3</span><span class="k">}</span> <span class="c"># open sublime but drop -p||--project and project name from args</span>
+</span><span class='line'>        <span class="c">#echo &quot;project specified, but project file doesn&#39;t exist, execute: subl ${*:3}&quot;</span>
+</span><span class='line'>      <span class="k">fi</span>
+</span><span class='line'><span class="k">    else</span>
+</span><span class='line'><span class="k">      </span>subl <span class="nv">$*</span> <span class="c"># open sublime and pass args as usual</span>
+</span><span class='line'>      <span class="c">#echo &quot;project argument not passed, execute: subl $*&quot;</span>
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'><span class="k">  else</span>
+</span><span class='line'><span class="k">    </span>subl <span class="nv">$*</span> <span class="c"># open sublime and pass args as usual</span>
+</span><span class='line'>    <span class="c">#echo &quot;only 1 argument passed, execute: subl $*&quot;</span>
+</span><span class='line'>  <span class="k">fi</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>I&#39;ve included a bit of rudimentary logic to ensure the project shortname you&#39;re passing actually matches a project file in the current directory, and if no match is found, the <code>-p</code> flag and project &quot;shortname&quot; are dropped from the command arguments (while the rest of the options remain) and ST2 is opened with an empty window (or new file, however you have configured ST2). May not be the desired behavior for some, but it works for me&#8230;</p>
 

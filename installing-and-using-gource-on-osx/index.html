@@ -207,56 +207,105 @@
 
 <p>Gource supports user images; here is a Perl script that will pull images from Gravatar based on email addresses found in <code>git-log</code>.</p>
 
-<div><script src='https://gist.github.com/1359047.js?file='></script>
-<noscript><pre><code>#!/usr/bin/perl
-#fetch Gravatars
-#http://code.google.com/p/gource/wiki/GravatarExample
-
-use strict;
-use warnings;
-
-use LWP::Simple;
-use Digest::MD5 qw(md5_hex);
-
-my $size       = 90;
-my $output_dir = '.git/avatar';
-
-die(&quot;no .git/ directory found in current path\n&quot;) unless -d '.git';
-
-mkdir($output_dir) unless -d $output_dir;
-
-open(GITLOG, q/git log --pretty=format:&quot;%ae|%an&quot; |/) or die(&quot;failed to read git-log: $!\n&quot;);
-
-my %processed_authors;
-
-while(&lt;GITLOG&gt;) {
-    chomp;
-    my($email, $author) = split(/\|/, $_);
-
-    next if $processed_authors{$author}++;
-
-    my $author_image_file = $output_dir . '/' . $author . '.png';
-
-    #skip images we have
-    next if -e $author_image_file;
-
-    #try and fetch image
-
-    my $grav_url = &quot;http://www.gravatar.com/avatar/&quot;.md5_hex(lc $email).&quot;?d=404&amp;size=&quot;.$size; 
-
-    warn &quot;fetching image for '$author' $email ($grav_url)...\n&quot;;
-
-    my $rc = getstore($grav_url, $author_image_file);
-
-    sleep(1);
-
-    if($rc != 200) {
-        unlink($author_image_file);
-        next;
-    }
-}
-
-close GITLOG;</code></pre></noscript></div>
+<figure class='code'><figcaption><span>fetch Gravatars </span><a href='https://gist.github.com/digitaljhelms/1359047'>gistfile1.pl</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+</pre></td><td class='code'><pre><code class='perl'><span class='line'><span class="c1">#!/usr/bin/perl</span>
+</span><span class='line'><span class="c1">#fetch Gravatars</span>
+</span><span class='line'><span class="c1">#http://code.google.com/p/gource/wiki/GravatarExample</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">use</span> <span class="n">strict</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="n">warnings</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">use</span> <span class="nn">LWP::</span><span class="n">Simple</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nn">Digest::</span><span class="n">MD5</span> <span class="sx">qw(md5_hex)</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">my</span> <span class="nv">$size</span>       <span class="o">=</span> <span class="mi">90</span><span class="p">;</span>
+</span><span class='line'><span class="k">my</span> <span class="nv">$output_dir</span> <span class="o">=</span> <span class="s">&#39;.git/avatar&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">die</span><span class="p">(</span><span class="s">&quot;no .git/ directory found in current path\n&quot;</span><span class="p">)</span> <span class="k">unless</span> <span class="o">-</span><span class="n">d</span> <span class="s">&#39;.git&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">mkdir</span><span class="p">(</span><span class="nv">$output_dir</span><span class="p">)</span> <span class="k">unless</span> <span class="o">-</span><span class="n">d</span> <span class="nv">$output_dir</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">open</span><span class="p">(</span><span class="n">GITLOG</span><span class="p">,</span> <span class="sx">q/git log --pretty=format:&quot;%ae|%an&quot; |/</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">die</span><span class="p">(</span><span class="s">&quot;failed to read git-log: $!\n&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">my</span> <span class="nv">%processed_authors</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span><span class="p">(</span><span class="sr">&lt;GITLOG&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">chomp</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">my</span><span class="p">(</span><span class="nv">$email</span><span class="p">,</span> <span class="nv">$author</span><span class="p">)</span> <span class="o">=</span> <span class="nb">split</span><span class="p">(</span><span class="sr">/\|/</span><span class="p">,</span> <span class="nv">$_</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">next</span> <span class="k">if</span> <span class="nv">$processed_authors</span><span class="p">{</span><span class="nv">$author</span><span class="p">}</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">my</span> <span class="nv">$author_image_file</span> <span class="o">=</span> <span class="nv">$output_dir</span> <span class="o">.</span> <span class="s">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$author</span> <span class="o">.</span> <span class="s">&#39;.png&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">#skip images we have</span>
+</span><span class='line'>    <span class="k">next</span> <span class="k">if</span> <span class="o">-</span><span class="n">e</span> <span class="nv">$author_image_file</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">#try and fetch image</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">my</span> <span class="nv">$grav_url</span> <span class="o">=</span> <span class="s">&quot;http://www.gravatar.com/avatar/&quot;</span><span class="o">.</span><span class="n">md5_hex</span><span class="p">(</span><span class="nb">lc</span> <span class="nv">$email</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;?d=404&amp;size=&quot;</span><span class="o">.</span><span class="nv">$size</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">warn</span> <span class="s">&quot;fetching image for &#39;$author&#39; $email ($grav_url)...\n&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">my</span> <span class="nv">$rc</span> <span class="o">=</span> <span class="n">getstore</span><span class="p">(</span><span class="nv">$grav_url</span><span class="p">,</span> <span class="nv">$author_image_file</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nv">$rc</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">unlink</span><span class="p">(</span><span class="nv">$author_image_file</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">next</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">close</span> <span class="n">GITLOG</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <h4 id="toc_16">Usage</h4>
 

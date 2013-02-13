@@ -309,32 +309,57 @@
 
 &lt;p&gt;You can also supply additional ST2 options, such as the &lt;code&gt;-b&lt;/code&gt; flag to open ST2 in the background, in the arguments list. One caveat to this is that, because &lt;code&gt;getopts&lt;/code&gt; isn&amp;#39;t being used to parse the options passed to bash, the &lt;code&gt;-p&lt;/code&gt; flag and the project file &amp;quot;shortname&amp;quot; must be the first and second option passed to the shell function &amp;#8211; basically, you can&amp;#39;t do &lt;code&gt;st -b -p lig&lt;/code&gt;, you have to do &lt;code&gt;st -p lig -b&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div&gt;&lt;script src='https://gist.github.com/3014302.js?file='&gt;&lt;/script&gt;
-&lt;noscript&gt;&lt;pre&gt;&lt;code&gt;# bash alias
-alias subl='/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl'
-
-# bash function, usage: $ st -p [projectname] -opt2 -opt3
-function st() {
-  if [ -n &amp;quot;$1&amp;quot; -a -n &amp;quot;$2&amp;quot; ]; then # if more than one argument
-    if [ &amp;quot;$1&amp;quot; = &amp;quot;-p&amp;quot; -o &amp;quot;$1&amp;quot; = &amp;quot;--project&amp;quot; ]; then # if arg1 is -p or --project
-      local projectfile=&amp;quot;$2&amp;quot;
-      [[ $projectfile != *.sublime-project ]] &amp;amp;&amp;amp; projectfile=&amp;quot;$2.sublime-project&amp;quot; # detect if arg2 already includes the ext
-      if [ -e $projectfile ]; then # does project file exist?
-        subl -n --project $projectfile ${*:3} # open project file, in new window, include trailing args
-        #echo &amp;quot;project specified, and project file exists, execute: subl -n --project $projectfile ${*:3}&amp;quot;
-      else
-        subl ${*:3} # open sublime but drop -p||--project and project name from args
-        #echo &amp;quot;project specified, but project file doesn't exist, execute: subl ${*:3}&amp;quot;
-      fi
-    else
-      subl $* # open sublime and pass args as usual
-      #echo &amp;quot;project argument not passed, execute: subl $*&amp;quot;
-    fi
-  else
-    subl $* # open sublime and pass args as usual
-    #echo &amp;quot;only 1 argument passed, execute: subl $*&amp;quot;
-  fi
-}&lt;/code&gt;&lt;/pre&gt;&lt;/noscript&gt;&lt;/div&gt;
+&lt;figure class='code'&gt;&lt;figcaption&gt;&lt;span&gt;ST2 bash alias &amp; CLI function &lt;/span&gt;&lt;a href='https://gist.github.com/digitaljhelms/3014302'&gt;gistfile1.sh&lt;/a&gt;&lt;/figcaption&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;span class='line-number'&gt;14&lt;/span&gt;
+&lt;span class='line-number'&gt;15&lt;/span&gt;
+&lt;span class='line-number'&gt;16&lt;/span&gt;
+&lt;span class='line-number'&gt;17&lt;/span&gt;
+&lt;span class='line-number'&gt;18&lt;/span&gt;
+&lt;span class='line-number'&gt;19&lt;/span&gt;
+&lt;span class='line-number'&gt;20&lt;/span&gt;
+&lt;span class='line-number'&gt;21&lt;/span&gt;
+&lt;span class='line-number'&gt;22&lt;/span&gt;
+&lt;span class='line-number'&gt;23&lt;/span&gt;
+&lt;span class='line-number'&gt;24&lt;/span&gt;
+&lt;span class='line-number'&gt;25&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='line'&gt;&lt;span class=&quot;c&quot;&gt;# bash alias&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;subl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;c&quot;&gt;# bash function, usage: $ st -p [projectname] -opt2 -opt3&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;st&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -n &lt;span class=&quot;s2&quot;&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; -a -n &lt;span class=&quot;s2&quot;&gt;&amp;quot;$2&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# if more than one argument&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;-p&amp;quot;&lt;/span&gt; -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--project&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# if arg1 is -p or --project&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;projectfile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$2&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$projectfile&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; *.sublime-project &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;projectfile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$2.sublime-project&amp;quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# detect if arg2 already includes the ext&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -e &lt;span class=&quot;nv&quot;&gt;$projectfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# does project file exist?&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        subl -n --project &lt;span class=&quot;nv&quot;&gt;$projectfile&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# open project file, in new window, include trailing args&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;c&quot;&gt;#echo &amp;quot;project specified, and project file exists, execute: subl -n --project $projectfile ${*:3}&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;        &lt;/span&gt;subl &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# open sublime but drop -p||--project and project name from args&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;c&quot;&gt;#echo &amp;quot;project specified, but project file doesn&amp;#39;t exist, execute: subl ${*:3}&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;    else&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;      &lt;/span&gt;subl &lt;span class=&quot;nv&quot;&gt;$*&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# open sublime and pass args as usual&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;c&quot;&gt;#echo &amp;quot;project argument not passed, execute: subl $*&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;  else&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;    &lt;/span&gt;subl &lt;span class=&quot;nv&quot;&gt;$*&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# open sublime and pass args as usual&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;c&quot;&gt;#echo &amp;quot;only 1 argument passed, execute: subl $*&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 
 &lt;p&gt;I&amp;#39;ve included a bit of rudimentary logic to ensure the project shortname you&amp;#39;re passing actually matches a project file in the current directory, and if no match is found, the &lt;code&gt;-p&lt;/code&gt; flag and project &amp;quot;shortname&amp;quot; are dropped from the command arguments (while the rest of the options remain) and ST2 is opened with an empty window (or new file, however you have configured ST2). May not be the desired behavior for some, but it works for me&amp;#8230;&lt;/p&gt;
 ]]></description>
@@ -679,56 +704,105 @@ function st() {
 
 &lt;p&gt;Gource supports user images; here is a Perl script that will pull images from Gravatar based on email addresses found in &lt;code&gt;git-log&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div&gt;&lt;script src='https://gist.github.com/1359047.js?file='&gt;&lt;/script&gt;
-&lt;noscript&gt;&lt;pre&gt;&lt;code&gt;#!/usr/bin/perl
-#fetch Gravatars
-#http://code.google.com/p/gource/wiki/GravatarExample
-
-use strict;
-use warnings;
-
-use LWP::Simple;
-use Digest::MD5 qw(md5_hex);
-
-my $size       = 90;
-my $output_dir = '.git/avatar';
-
-die(&amp;quot;no .git/ directory found in current path\n&amp;quot;) unless -d '.git';
-
-mkdir($output_dir) unless -d $output_dir;
-
-open(GITLOG, q/git log --pretty=format:&amp;quot;%ae|%an&amp;quot; |/) or die(&amp;quot;failed to read git-log: $!\n&amp;quot;);
-
-my %processed_authors;
-
-while(&amp;lt;GITLOG&amp;gt;) {
-    chomp;
-    my($email, $author) = split(/\|/, $_);
-
-    next if $processed_authors{$author}++;
-
-    my $author_image_file = $output_dir . '/' . $author . '.png';
-
-    #skip images we have
-    next if -e $author_image_file;
-
-    #try and fetch image
-
-    my $grav_url = &amp;quot;http://www.gravatar.com/avatar/&amp;quot;.md5_hex(lc $email).&amp;quot;?d=404&amp;amp;size=&amp;quot;.$size; 
-
-    warn &amp;quot;fetching image for '$author' $email ($grav_url)...\n&amp;quot;;
-
-    my $rc = getstore($grav_url, $author_image_file);
-
-    sleep(1);
-
-    if($rc != 200) {
-        unlink($author_image_file);
-        next;
-    }
-}
-
-close GITLOG;&lt;/code&gt;&lt;/pre&gt;&lt;/noscript&gt;&lt;/div&gt;
+&lt;figure class='code'&gt;&lt;figcaption&gt;&lt;span&gt;fetch Gravatars &lt;/span&gt;&lt;a href='https://gist.github.com/digitaljhelms/1359047'&gt;gistfile1.pl&lt;/a&gt;&lt;/figcaption&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;span class='line-number'&gt;14&lt;/span&gt;
+&lt;span class='line-number'&gt;15&lt;/span&gt;
+&lt;span class='line-number'&gt;16&lt;/span&gt;
+&lt;span class='line-number'&gt;17&lt;/span&gt;
+&lt;span class='line-number'&gt;18&lt;/span&gt;
+&lt;span class='line-number'&gt;19&lt;/span&gt;
+&lt;span class='line-number'&gt;20&lt;/span&gt;
+&lt;span class='line-number'&gt;21&lt;/span&gt;
+&lt;span class='line-number'&gt;22&lt;/span&gt;
+&lt;span class='line-number'&gt;23&lt;/span&gt;
+&lt;span class='line-number'&gt;24&lt;/span&gt;
+&lt;span class='line-number'&gt;25&lt;/span&gt;
+&lt;span class='line-number'&gt;26&lt;/span&gt;
+&lt;span class='line-number'&gt;27&lt;/span&gt;
+&lt;span class='line-number'&gt;28&lt;/span&gt;
+&lt;span class='line-number'&gt;29&lt;/span&gt;
+&lt;span class='line-number'&gt;30&lt;/span&gt;
+&lt;span class='line-number'&gt;31&lt;/span&gt;
+&lt;span class='line-number'&gt;32&lt;/span&gt;
+&lt;span class='line-number'&gt;33&lt;/span&gt;
+&lt;span class='line-number'&gt;34&lt;/span&gt;
+&lt;span class='line-number'&gt;35&lt;/span&gt;
+&lt;span class='line-number'&gt;36&lt;/span&gt;
+&lt;span class='line-number'&gt;37&lt;/span&gt;
+&lt;span class='line-number'&gt;38&lt;/span&gt;
+&lt;span class='line-number'&gt;39&lt;/span&gt;
+&lt;span class='line-number'&gt;40&lt;/span&gt;
+&lt;span class='line-number'&gt;41&lt;/span&gt;
+&lt;span class='line-number'&gt;42&lt;/span&gt;
+&lt;span class='line-number'&gt;43&lt;/span&gt;
+&lt;span class='line-number'&gt;44&lt;/span&gt;
+&lt;span class='line-number'&gt;45&lt;/span&gt;
+&lt;span class='line-number'&gt;46&lt;/span&gt;
+&lt;span class='line-number'&gt;47&lt;/span&gt;
+&lt;span class='line-number'&gt;48&lt;/span&gt;
+&lt;span class='line-number'&gt;49&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='perl'&gt;&lt;span class='line'&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/perl&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;c1&quot;&gt;#fetch Gravatars&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;c1&quot;&gt;#http://code.google.com/p/gource/wiki/GravatarExample&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;LWP::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Simple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Digest::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MD5&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;qw(md5_hex)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$size&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$output_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.git/avatar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nb&quot;&gt;die&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;no .git/ directory found in current path\n&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.git&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$output_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$output_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GITLOG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;q/git log --pretty=format:&amp;quot;%ae|%an&amp;quot; |/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;die&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;failed to read git-log: $!\n&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%processed_authors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;&amp;lt;GITLOG&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;chomp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/\|/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$processed_authors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$author_image_file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$output_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$author&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.png&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;c1&quot;&gt;#skip images we have&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$author_image_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;c1&quot;&gt;#try and fetch image&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$grav_url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.gravatar.com/avatar/&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;md5_hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;lc&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;?d=404&amp;amp;size=&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;warn&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;fetching image for &amp;#39;$author&amp;#39; $email ($grav_url)...\n&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$rc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getstore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$grav_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$author_image_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$rc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;nb&quot;&gt;unlink&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$author_image_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;k&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nb&quot;&gt;close&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GITLOG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
 
 &lt;h4 id=&quot;toc_16&quot;&gt;Usage&lt;/h4&gt;
 

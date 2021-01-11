@@ -27,7 +27,7 @@ GEM
     pygments.rb (0.2.13)
       rubypython (~> 0.5.3)
     rake (10.0.3)
-    redcarpet (2.1.1)
+    redcarpet (3.5.1)
     rubypants (0.2.0)
     rubypython (0.5.3)
       blankslate (>= 2.1.2.3)
